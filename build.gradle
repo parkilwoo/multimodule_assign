@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.1'
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
+
+allprojects {
+    group = 'com.example'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '17'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':search_module') {
+    jar {
+        archivesBaseName = 'search_module'
+    }
+    dependencies {
+        implementation project(':data_module')
+
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
+        // https://mvnrepository.com/artifact/com.google.code.gson/gson
+        implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+    }
+}
+
+project(':popular_module') {
+    jar {
+        archivesBaseName = 'popular_module'
+    }
+    dependencies {
+        implementation project(':data_module')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+    }
+}
+
+project(':data_module') {
+    bootJar { enabled = false }
+    jar { enabled = true }
+
+    dependencies {
+        api 'org.springframework.boot:spring-boot-starter-data-jpa'
+        api 'org.springframework.boot:spring-boot-starter-data-redis'
+        runtimeOnly 'com.h2database:h2'
+
+        // embedded-redis
+        api group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+    }
+
+}

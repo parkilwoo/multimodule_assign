@@ -1,0 +1,4 @@
+rootProject.name = 'modules'
+include 'data_module'
+include 'search_module'
+include 'popular_module'
