@@ -54,7 +54,7 @@
 
 ### API 명세
 
-```GET /api/v1/blog```
+```GET http://localhost:8081/api/v1/blog```
 * Request
 
 | 필드명 | 타입 | 설명 | 필수 여부 | 기본값 |
@@ -91,7 +91,7 @@
 | datetime  | Datetime | 블로그 글 작성시간, ISO 8601 [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].000+[tz]            |
 
 
-```GET /api/v1/popular```
+```GET http://localhost:8082/api/v1/popular```
 * Response
 
 | 필드명 | 타입 | 설명 |
@@ -105,3 +105,15 @@
 | --- | --- | --- |
 | keyword | String | 검색어 |
 | score | Integer | 검색횟수 |
+
+
+### 다운로드 링크 및 실행방법
+
+다운로드 링크: https://github.com/parkilwoo/20230705_2126-000188/tree/main/download
+
+🔥 **매우중요**
+
+구성도에서도 말했다싶이 서버가 두개입니다. 꼭 링크에 있는 popular_module-0.0.1-SNAPSHOT.jar, search_module-0.0.1-SNAPSHOT.jar 두 파일 모두 받은 후
+``` java -jar search_module-0.0.1-SNAPSHOT.jar ```
+``` jave -jar popular_module-0.0.1-SNAPSHOT.jar ```
+두개 다 실행해주세요!(어떤 파일을 먼저 실행하든 상관은 없습니다.)
